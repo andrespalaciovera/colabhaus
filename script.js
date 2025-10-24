@@ -6,31 +6,59 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth Scrolling for Navigation Links
     const navLinks = document.querySelectorAll('.nav-link, .footer-links a');
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
+    // navLinks.forEach(link => {
+    //     link.addEventListener('click', function(e) {
+    //         const href = this.getAttribute('href');
 
-            // Only handle internal anchor links
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const targetElement = document.getElementById(targetId);
+    //         // Only handle internal anchor links
+    //         if (href && href.startsWith('#')) {
+    //             e.preventDefault();
+    //             const targetId = href.substring(1);
+    //             const targetElement = document.getElementById(targetId);
 
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+    //             if (targetElement) {
+    //                 targetElement.scrollIntoView({
+    //                     behavior: 'smooth',
+    //                     block: 'start'
+    //                 });
 
-                    // Update active state
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            }
-        });
-    });
+    //                 // Update active state
+    //                 navLinks.forEach(l => l.classList.remove('active'));
+    //                 this.classList.add('active');
+    //             }
+    //         }
+    //     });
+    // });
 
     // Form Submission Handler
+    
+    navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+
+        // Only handle internal anchor links
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                const navbarHeight = 120; // heigth of navbar
+                const targetPosition = targetElement.offsetTop - navbarHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Update active state
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            }
+        }
+    });
+});
+    
     const contactForm = document.querySelector('.contact-form');
 
     if (contactForm) {
